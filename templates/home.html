@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Posts</h1>
+    <!-- <div class="container segment">
+        <div class="ui bulleted list">
+            {% for post in post %}
+                <div class="item" style='font-size: 20px;'><a href="{%url 'article' post.pk %}">{{post.title}}</a> by {{post.author}}</div> 
+            {% endfor %}
+        </div>
+    </div>
+     -->
+    <!-- <div class="ui link list">
+        {% for post in post %}
+    <a class="item" href="{%url 'article' post.pk %}" style='color: blue; font-size: 20px;'>{{post.title}} by {{post.author}}</a>
+        {% endfor %}
+    </div> -->
+    <ul>
+        {% for posts in post %}
+            <li><a href="{%url 'article' posts.pk %}">{{posts.title}}</a> by {{posts.author}}--
+                <a href="{% url 'category' posts.category|slugify %}">
+                    <!-- /|\ slugify removes spaces in url with '-' -->
+                    {{posts.category}}
+                </a>
+                --{{posts.created_at}} 
+                <small>
+                    {% if user.is_authenticated %}
+                        {% if user.id == posts.author.id %}
+                            ::
+                            <a href="{% url 'update_post' posts.pk%}">(Edit)</a>
+                            <a href="{% url 'delete_post' posts.pk%}">(Delete)</a>
+                        {% endif %}
+                    {% endif %}
+                </small>
+            </li>
+            <!-- {{posts.body|truncatewords:20|safe}} -->
+            {{posts.snippet|safe}}
+        {% endfor %}
+    </ul>
+{% endblock %}

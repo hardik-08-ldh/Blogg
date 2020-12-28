@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block header %}
+    {{block.super}}-{{article.title}}
+{% endblock %}
+{% block content%}
+    <!-- <br>
+    <br>
+    <div class="ui raised very padded text container segment">
+        <h2 class="ui header" style="text-align: center;">{{article.title}}</h2>
+        <h3 class="ui header" style="text-align: center;">By :- {{article.author}}</h3>
+        <p>
+            {{article.body}}
+        </p>
+        
+    </div> -->
+    <h1>{{article.title}}</h1>
+    <small>By:{{article.author}} - {{article.created_at}}</small>
+    <!-- {{posts.author.id}} -->
+    <br>
+    <small>
+        {% if user.is_authenticated %}
+                        {% if user.id == article.author.id %}
+                            <a href="{% url 'update_post' article.pk%}">(Edit)</a>
+                            <a href="{% url 'delete_post' article.pk%}">(Delete)</a>
+                        {% endif %}
+        {% endif %}
+    </small>
+    <hr>
+    <br>
+    {% autoescape off %}
+    {% if article.header_image %}
+        <img src="{{article.header_image.url}}" alt="">
+        <br>
+        <br>
+    {% endif %}
+    {{article.body|safe}}
+    {% endautoescape %}
+    <br><br>
+    <form action="{% url 'like_post' article.pk %}" method="post" name="postid" value="{{article.id}}">
+        {% csrf_token %}
+            {% if user.is_authenticated %}
+                {% if liked %}
+                    <button type="submit" class="btn btn-danger">Unlike</button>
+                {% else %}
+                    <button type="submit" class="btn btn-info">Like</button>
+                {% endif %}
+            {% else %}
+                <h5><a href="{% url 'login' %}">Login</a> To Like The Post</h5>
+            {% endif %}
+        -{{total_likes}} Likes
+    </form>
+    <hr>
+    <br><br>
+
+    <a href="{% url 'home'%}" class="btn btn-info">Back to homepage</a>
+{% endblock %}

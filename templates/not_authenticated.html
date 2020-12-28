@@ -1,0 +1,6 @@
+{% extends 'base.html'%}
+{% block content %}
+    <h1>Sorry!!! You are not authorized to view this page</h1>
+    <h3>Login Instead</h3>
+    <button type="submit" class="btn btn-info"><a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}">Login</a></button>
+{% endblock %}

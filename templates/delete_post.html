@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block header %}
+    Delete A Blog
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+            <h1>Delete Blog Post</h1>
+            <br>
+            <h3>Delete:{{post.title}}</h3>
+            <br>
+            <div class="form-group">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <strong>Are You Sure!!!</strong><br><br>
+                    <button type="submit" class="btn btn-primary">Delete Post</button>
+                </form>
+            </div>
+        {% else %}
+            <h1>Sorry!!! You don't have access  to view this page</h1>
+        {% endif %}
+    {% else %}
+        <h1>Sorry!!! You are not authorized to view this page</h1>
+        <h3>Login Instead</h3>
+        <button type="submit" class="btn btn-danger"><a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}">Login</a></button>
+    {% endif %}
+{% endblock %}

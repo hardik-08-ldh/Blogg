@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block header %}
+    Edit A Blog
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+    <h1>Edit Blog Post</h1>
+    <div class="form-group">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+    {% else %}
+            <h1>Sorry!!! You don't have access to view this page</h1>
+    {% endif %}
+{% else %}
+    <h1>Sorry!!! You are not authorized to view this page</h1>
+    <h3>Login Instead</h3>
+    <button type="submit" class="btn btn-warning"><a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}">Login</a></button>
+{% endif %}
+{% endblock %}

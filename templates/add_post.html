@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block header %}
+    Create A New Blog
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Add Post</h1>
+    <div class="form-group">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+    </div>
+    <script>
+        var name="{{user.id}}";
+        document.getElementById('Author').value=name
+
+    </script>
+    {% else %}
+        <h1>Sorry!!! You are not authorized to view this page</h1>
+        <h3>Login Instead</h3>
+        <button type="submit" class="btn btn-danger"><a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}">Login</a></button>
+    {% endif %}
+{% endblock %}
