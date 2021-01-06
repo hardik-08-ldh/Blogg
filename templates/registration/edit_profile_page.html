@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block header %}
+    Edit Profile
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.id == profile.user.id %}
+        <h1>Edit Profile Page</h1>
+        <div class="form-group">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-primary">Edit Profile</button>
+            </form>
+        </div>
+        <script>
+            var name="{{user.id}}";
+            document.getElementById('Author').value=name
+        </script>
+    {% else %}
+        <br><br>
+        <h1>Sorry!!! You are not authenticated user to edit this profile</h1>
+        <h3>Login As A Different User</h3>
+        <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}" class="btn btn-danger">Login As Different User</a>
+    {% endif %}
+{% else %}
+<br><br>
+    <h1>Sorry!!! You are not authorized to view this page</h1>
+    <h3>Login Instead</h3>
+    <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}" class="btn btn-danger">Login</a>
+{% endif %}
+{% endblock %}

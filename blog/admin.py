@@ -5,5 +5,5 @@ from blog import models
 admin.site.register([
     models.Post,
     models.Category,
-    # models.User,
+    models.Profile,
 ])

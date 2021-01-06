@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+    {{block.super}}-{{page_user}}'s profile
+{% endblock %}
+{% block content%}
+    <h1>Profile</h1>
+    <!-- {{page_user}} -->
+    <br><br>
+    <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-1">
+            {% if page_user.profile_pic %}
+                <img src="{{page_user.profile_pic.url}}" width="170%" height="100%" style="object-fit: cover;">
+            {% else %}
+            <img src="{% static 'blogcodemy/images/images.png' %}" width="170%" height="100%" style="object-fit: cover;">
+            {% endif %}
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title">{{page_user}}</h5>
+              <p class="small text-muted">
+                  {% if page_user.linkedin_url %}
+                    <a href="{{page_user.linkedin_url}}">
+                        LinkedIn
+                    </a>
+                 {% endif %}
+
+                 {% if page_user.codechef_url%}
+                    |<a href="{{page_user.codechef_url}}">
+                        Codechef
+                    </a>
+                 {% endif %}
+
+                 {% if page_user.codeforces_url %}
+                 |<a href="{{page_user.codeforces_url}}">
+                    Codeforces
+                 </a>
+                 {% endif %}
+                </p>
+              <p class="card-text">{{page_user.bio}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+   
+{% endblock %}

@@ -14,6 +14,20 @@ class Category(models.Model):
         # return reverse('article', args=str(self.pk))
         return reverse('home')
 
+class Profile(models.Model):
+    # \/ we described a new claa for profile page as it is added afterwards to the project
+    user =models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    bio=models.TextField()
+    profile_pic=models.ImageField(null=True ,blank=True,upload_to="images/profile")
+    linkedin_url=models.CharField(max_length=255 , null=True , blank=True)
+    codechef_url=models.CharField(max_length=255 , null=True , blank=True)
+    codeforces_url=models.CharField(max_length=255 , null=True , blank=True)
+
+    def __str__(self):
+        return str(self.user)
+
+    def  get_absolute_url(self):
+        return reverse('home')
 class Post(models.Model):
     title=models.CharField(max_length=200)
     header_image=models.ImageField(null=True ,blank=True,upload_to="images/")

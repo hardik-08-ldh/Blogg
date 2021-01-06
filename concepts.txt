@@ -1,1 +1,3 @@
 django thinks of images as media
+
+images upladed to images directory and images/profile directory

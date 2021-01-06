@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block header %}
+    Create Your Profile
+{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Create Profile</h1>
+    <br>
+    <div class="form-group">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Create Profile</button>
+        </form>
+    </div>
+    <!-- not using javascript here as used in add post we will do in a different way -->
+    {% else %}
+        <h1>Sorry!!! You are not authorized to view this page</h1>
+        <h3>Login Instead</h3>
+        <button type="submit" class="btn btn-danger"><a href="{{ request.scheme }}://{{ request.get_host }}{% url 'login' %}">Login</a></button>
+    {% endif %}
+{% endblock %}
