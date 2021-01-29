@@ -107,3 +107,15 @@ def LikeView(request,pk):
     # post=get_object_or_404(models.Post,id=request,POST.get(pk))
     # like_object=get_object_or_404(models.Post,id=self.kwargs['pk'])
     return HttpResponseRedirect(reverse('article',args=[str(pk)]))
+
+
+class AddCommentView(CreateView):
+    model=models.Comment
+    form_class=forms.CommentForm
+    # fields='__all__'
+    template_name='add_comment.html'
+    success_url=reverse_lazy('home')
+
+    def form_valid(self,form):
+        form.instance.post_id=self.kwargs['pk']
+        return super().form_valid(form)

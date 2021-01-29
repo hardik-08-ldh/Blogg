@@ -6,4 +6,5 @@ admin.site.register([
     models.Post,
     models.Category,
     models.Profile,
+    models.Comment,
 ])

@@ -12,4 +12,5 @@ urlpatterns=[
     # just cats is the name/|\ given
     path('category-details/',views.CategoryDetail,name='category_detail'),
     path('like/<int:pk>',views.LikeView,name='like_post'),
+    path('article/<int:pk>/comment',views.AddCommentView.as_view(),name='add_comment')
 ]

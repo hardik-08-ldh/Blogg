@@ -52,6 +52,7 @@
     </form>
     <hr>
     <br>
+    <h2>About The Author</h2>
     <br>
     <div class="card mb-3">
         <div class="row g-0">
@@ -96,5 +97,19 @@
           </div>
         </div>
       </div>
-    <a href="{% url 'home'%}" class="btn btn-info">Back to homepage</a>
+      <br>
+    <h2>Comments</h2>
+    <a href="{% url 'add_comment' article.id %}"> Add A Comment </a>
+    <br>
+    <br>
+    {% if not article.comments.all %}
+        <h6>No Comments Yet</h6>
+    {% else %}
+        {% for comment in article.comments.all%}
+            <strong>{{comment.name_of_user}}-{{comment.date_added}}</strong>
+            <br>
+            {{comment.body}}<br><br>
+        {% endfor %}
+    {% endif %}
+    <br>
 {% endblock %}

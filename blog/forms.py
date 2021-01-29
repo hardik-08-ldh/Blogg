@@ -32,3 +32,12 @@ class EditForm(forms.ModelForm):
             'body':forms.Textarea(attrs={'class':'form-control'}),
             'snippet':forms.Textarea(attrs={'class':'form-control'}),
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model=models.Comment
+        fields=('name_of_user','body')
+        widgets={
+            'name_of_user':forms.TextInput(attrs={'class':'form-control'}),
+            'body':forms.Textarea(attrs={'class':'form-control'}),
+       }
