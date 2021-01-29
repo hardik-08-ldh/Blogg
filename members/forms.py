@@ -10,8 +10,7 @@ class SignupForm(UserCreationForm):
     class Meta:
         model=User
         fields=('username','first_name','second_name','email','password1','password2')
-        # /|\  password1 and 2 are given by default
-
+        
     def __init__(self, *args, **kwargs):
 
             super(SignupForm, self).__init__(*args, **kwargs)
@@ -28,7 +27,6 @@ class UpdateUser(UserChangeForm):
     is_staff=forms.CharField(max_length=100,widget=forms.CheckboxInput(attrs={'class':'form-check'}))
     is_active=forms.CharField(max_length=100,widget=forms.CheckboxInput(attrs={'class':'form-check'}))
     last_login=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control'}))
-    # groups=forms.CharField(max_length=100,widget=forms.EmailInput(attrs={'class':'form-control'}))
     class Meta:
         model=User
         fields=('username','first_name','last_name','email','is_superuser','is_staff','is_active','last_login')
@@ -48,8 +46,7 @@ class CreateProfileForm(forms.ModelForm):
         fields=('bio','profile_pic','linkedin_url','codechef_url','codeforces_url')
         widgets={
             'bio':forms.Textarea(attrs={'class':'form-control', 'placeholder':'Enter Bio'}),
-            # 'profile_pic':forms.TextInput(attrs={'class':'form-control'}),
-            # 'author':forms.Select(attrs={'class':'form-control'}),
+           
             'linkedin_url':forms.TextInput(attrs={'class':'form-control'}),
             'codechef_url':forms.TextInput(attrs={'class':'form-control'}),
             'codeforces_url':forms.TextInput(attrs={'class':'form-control'}),

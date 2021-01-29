@@ -4,9 +4,6 @@ from blog import models,forms
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-# Create your views here.
-# def home(request):
-#     return render(request,'home.html',{})
 class Home(ListView):
     model=models.Post
     context_object_name='post'
@@ -55,12 +52,7 @@ class AddPostView(CreateView):
     form_class=forms.PostForm
     context_object_name='post'
     template_name='add_post.html'
-    # login_url='not_authenticated'
-    # fields='__all__'
-    # def form_valid(self, form):
-    #     form.instance.author = self.request.user
-    #     return super(AddPostView, self).form_valid(form)
-
+    
     def get_context_data(self,*args,**kwargs):
         cat_menu=models.Category.objects.all()
         new_context=super(AddPostView,self).get_context_data(*args,**kwargs)
@@ -72,8 +64,7 @@ class UpdatePostView(UpdateView):
     form_class=forms.EditForm
     context_object_name='post'
     template_name='update_post.html'
-    # login_url='not_authenticated'
-    # fields={'title','body'}
+
     def get_context_data(self,*args,**kwargs):
         cat_menu=models.Category.objects.all()
         new_context=super(UpdatePostView,self).get_context_data(*args,**kwargs)
@@ -84,7 +75,7 @@ class DeletePostView(DeleteView):
     model=models.Post
     context_object_name='post'
     template_name='delete_post.html'
-    # login_url='not_authenticated'
+
     success_url=reverse_lazy('home')
     def get_context_data(self,*args,**kwargs):
         cat_menu=models.Category.objects.all()
@@ -92,8 +83,7 @@ class DeletePostView(DeleteView):
         new_context['cat_menu']=cat_menu
         return new_context
 
-# class NotAllowed(TemplateView):
-#     template_name = "not_authenticated.html"
+
 def LikeView(request,pk):
     post=models.Post.objects.get(id=pk)
     liked=False
@@ -103,16 +93,14 @@ def LikeView(request,pk):
     else:
         liked=True
         post.like.add(request.user)
-    # print(request.POST.get('postid'))
-    # post=get_object_or_404(models.Post,id=request,POST.get(pk))
-    # like_object=get_object_or_404(models.Post,id=self.kwargs['pk'])
+
     return HttpResponseRedirect(reverse('article',args=[str(pk)]))
 
 
 class AddCommentView(CreateView):
     model=models.Comment
     form_class=forms.CommentForm
-    # fields='__all__'
+    
     template_name='add_comment.html'
     success_url=reverse_lazy('home')
 
